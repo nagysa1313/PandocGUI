@@ -1,0 +1,50 @@
+﻿<Window x:Class="PandocGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PandocGUI" Height="350" Width="525">
+
+    <Grid DataContext="{Binding Main, Source={StaticResource Locator}}">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="Pandoc path" />
+                <TextBox Grid.Column="1" Text="{Binding Config.PandocExePath, Mode=TwoWay}" />
+                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForPandocExe}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Source file" />
+                <TextBox Grid.Column="1" Text="{Binding Task.SourceFile, Mode=TwoWay}" />
+                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForSourceFile}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Destination" />
+                <TextBox Grid.Column="1" Text="{Binding Task.TargetFile, Mode=TwoWay}" />
+                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForOutputFile}" />
+            </Grid>
+            
+            <Button Content="Do" Command="{Binding Do}" />
+            
+            <TextBlock Text="{Binding LastError.Message}" />
+            <TextBlock Text="{Binding LastError.StackTrace}" />
+        </StackPanel>
+    </Grid>
+</Window>
