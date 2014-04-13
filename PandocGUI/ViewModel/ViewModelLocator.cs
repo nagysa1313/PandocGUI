@@ -15,6 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using PandocGUI.ViewModel.Pandoc;
 
 namespace PandocGUI.ViewModel
 {
@@ -43,6 +44,8 @@ namespace PandocGUI.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ConfigViewModel>();
+            SimpleIoc.Default.Register<PandocTaskVM>();
         }
 
         public MainViewModel Main
@@ -50,6 +53,22 @@ namespace PandocGUI.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public PandocTaskVM Task
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PandocTaskVM>();
+            }
+        }
+
+        public ConfigViewModel Config
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ConfigViewModel>();
             }
         }
         

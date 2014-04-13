@@ -68,7 +68,11 @@
     <Compile Include="Model\Config.cs" />
     <Compile Include="Model\PandocFileExtension.cs" />
     <Compile Include="Model\PandocTask.cs" />
+    <Compile Include="Utils\AppExtentions.cs" />
+    <Compile Include="Utils\Converters\IsVisibleConverter.cs" />
+    <Compile Include="ViewModel\ConfigViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Pandoc\PandocTaskVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

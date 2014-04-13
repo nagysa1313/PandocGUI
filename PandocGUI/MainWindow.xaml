@@ -4,47 +4,83 @@
         Title="PandocGUI" Height="350" Width="525">
 
     <Grid DataContext="{Binding Main, Source={StaticResource Locator}}">
-        <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Text="Pandoc path" />
-                <TextBox Grid.Column="1" Text="{Binding Config.PandocExePath, Mode=TwoWay}" />
-                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForPandocExe}" />
-            </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+        <ScrollViewer>
+            <StackPanel>
+                <HeaderedContentControl Header="Configuration" DataContext="{Binding Config, Source={StaticResource Locator}}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Source file" />
-                <TextBox Grid.Column="1" Text="{Binding Task.SourceFile, Mode=TwoWay}" />
-                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForSourceFile}" />
-            </Grid>
+                            <TextBlock Text="Pandoc path" />
+                            <TextBox Grid.Column="1" Text="{Binding Model.PandocExePath, Mode=TwoWay}" />
+                            <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForPandocExe}" />
+                        </Grid>
+                    </StackPanel>
+                </HeaderedContentControl>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <HeaderedContentControl Header="Task" DataContext="{Binding Task, Source={StaticResource Locator}}">
+                    <HeaderedContentControl.Resources>
+                        <DataTemplate x:Key="TargetFileItemTemplate">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Destination" />
-                <TextBox Grid.Column="1" Text="{Binding Task.TargetFile, Mode=TwoWay}" />
-                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForOutputFile}" />
-            </Grid>
-            
-            <Button Content="Do" Command="{Binding Do}" />
-            
-            <TextBlock Text="{Binding LastError.Message}" />
-            <TextBlock Text="{Binding LastError.StackTrace}" />
-        </StackPanel>
+                                <TextBox Grid.Column="0" Text="{Binding Path, Mode=TwoWay}" />
+                                <Button Grid.Column="1" Content="Browse"
+                                        Command="{Binding Task.BrowseForTargetFile, Source={StaticResource Locator}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Grid.Column="2" Content="Remove"
+                                        Command="{Binding Task.RemoveTargetFile, Source={StaticResource Locator}}"
+                                        CommandParameter="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                        
+                        <ItemsPanelTemplate x:Key="TargetFilesPanelTemplate">
+                            <StackPanel HorizontalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </HeaderedContentControl.Resources>
+
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Source file" />
+                            <TextBox Grid.Column="1" Text="{Binding Model.SourceFile, Mode=TwoWay}" />
+                            <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForSourceFile}" />
+                        </Grid>
+
+                        <ItemsControl ItemsSource="{Binding Model.TargetFiles, Mode=TwoWay}"
+                                      ItemTemplate="{StaticResource TargetFileItemTemplate}"
+                                      ItemsPanel="{StaticResource TargetFilesPanelTemplate}"
+                                      Margin="4"/>
+                        
+                        <Button Content="Add target" Command="{Binding AddTargetFile}" />
+
+                        <Button Content="Do" Command="{Binding Do}" />
+                        <TextBlock Text="Working..." Visibility="{Binding IsBusy, Converter={StaticResource IsVisibleConverter}}" />
+
+                        <TextBlock Text="{Binding FailedTargetFile}" />
+                        <TextBlock Text="{Binding LastError.Message}" />
+                        <TextBlock Text="{Binding LastError.StackTrace}" />
+                    </StackPanel>
+                </HeaderedContentControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
