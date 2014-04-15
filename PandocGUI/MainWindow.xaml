@@ -11,6 +11,16 @@
 
         <ScrollViewer>
             <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="Load" Command="{Binding Load}" />
+                    <Button Content="Save" Command="{Binding Save}" Grid.Column="1" />
+                </Grid>
+                
                 <HeaderedContentControl Header="Configuration" DataContext="{Binding Config, Source={StaticResource Locator}}">
                     <StackPanel>
                         <Grid>
