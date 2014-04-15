@@ -21,6 +21,7 @@ namespace PandocGUI.Model
             exts.Add(new PandocFileExtension() { Extension = ".html", PandocType = "html" });
             exts.Add(new PandocFileExtension() { Extension = ".docx", PandocType = "docx" });
             exts.Add(new PandocFileExtension() { Extension = ".epub", PandocType = "epub" });
+            exts.Add(new PandocFileExtension() { Extension = ".pdf", PandocType = "pdf" });
 
             _availableExtensions = exts;
         }
