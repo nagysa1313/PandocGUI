@@ -1,10 +1,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Win32;
 using PandocGUI.Model;
+using SharpRepository.Repository;
 using System;
-using System.Diagnostics;
-using System.IO;
+using System.Linq;
 
 namespace PandocGUI.ViewModel
 {
@@ -22,12 +21,32 @@ namespace PandocGUI.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        private static IRepository<PandocTask, int> TaskRepository = RepositoryFactory.GetInstance<PandocTask>();
+
+        public RelayCommand Save { get; private set; }
+        public RelayCommand Load { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            
+            Save = new RelayCommand(() =>
+                {
+                    var taskVM = this.GetLocator().Task;
+
+                    if (TaskRepository.Exists(taskVM.Model.Key))
+                        TaskRepository.Update(taskVM.Model);
+                    else TaskRepository.Add(taskVM.Model);
+
+                    taskVM.Model = new PandocTask();
+                });
+
+            Load = new RelayCommand(() =>
+                {
+                    var taskVM = this.GetLocator().Task;
+                    taskVM.Model = TaskRepository.Any() ? TaskRepository.First() : taskVM.Model;
+                });
         }
     }
 }

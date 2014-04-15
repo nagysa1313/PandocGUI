@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SharpRepository.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,15 @@ namespace PandocGUI.Model
 
     public class PandocTask : ObservableObject
     {
+        private int _key;
+
+        [RepositoryPrimaryKey]
+        public int Key
+        {
+            get { return _key; }
+            set { Set(() => Key, ref _key, value); }
+        }
+
         private string _sourceFile;
 
         public string SourceFile
