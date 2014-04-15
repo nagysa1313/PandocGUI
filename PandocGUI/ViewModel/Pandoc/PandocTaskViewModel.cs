@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PandocGUI.ViewModel.Pandoc
 {
-    public class PandocTaskVM : ViewModelBase
+    public class PandocTaskViewModel : ViewModelBase
     {
         private PandocTask _model;
 
@@ -56,7 +56,7 @@ namespace PandocGUI.ViewModel.Pandoc
         public RelayCommand<TargetFile> BrowseForTargetFile { get; set; }
         public GalaSoft.MvvmLight.Command.RelayCommand Do { get; set; }
 
-        public PandocTaskVM()
+        public PandocTaskViewModel()
         {
             Model = new PandocTask();
 
