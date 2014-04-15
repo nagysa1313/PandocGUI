@@ -45,15 +45,6 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="SharpRepository.InMemoryRepository">
-      <HintPath>..\packages\SharpRepository.InMemoryRepository.1.4.0.0\lib\net40\SharpRepository.InMemoryRepository.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpRepository.Repository">
-      <HintPath>..\packages\SharpRepository.Repository.1.4.6.0\lib\net40\SharpRepository.Repository.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpRepository.XmlRepository">
-      <HintPath>..\packages\SharpRepository.XmlRepository.1.3.5.18-unstable\lib\net40\SharpRepository.XmlRepository.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -79,7 +70,6 @@
     <Compile Include="Model\Config.cs" />
     <Compile Include="Model\PandocFileExtension.cs" />
     <Compile Include="Model\PandocTask.cs" />
-    <Compile Include="Repository\PandocTaskRepository.cs" />
     <Compile Include="Utils\AppExtentions.cs" />
     <Compile Include="Utils\Converters\IsVisibleConverter.cs" />
     <Compile Include="ViewModel\ConfigViewModel.cs" />
