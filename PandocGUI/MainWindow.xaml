@@ -34,6 +34,18 @@
                             <TextBox Grid.Column="1" Text="{Binding Model.PandocExePath, Mode=TwoWay}" />
                             <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForPandocExe}" />
                         </Grid>
+
+                        <TextBlock Text="Working..." Visibility="{Binding IsBusy, Converter={StaticResource IsVisibleConverter}}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Text="Detected Version" />
+                            <TextBlock Grid.Column="1" Text="{Binding DetectedVersion}" />
+                        </Grid>
                     </StackPanel>
                 </HeaderedContentControl>
 
