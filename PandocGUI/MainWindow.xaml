@@ -44,7 +44,7 @@
                             </Grid.ColumnDefinitions>
                             
                             <TextBlock Text="Detected Version" />
-                            <TextBlock Grid.Column="1" Text="{Binding DetectedVersion}" />
+                            <TextBlock Grid.Column="1" Text="{Binding DetectedVersion.Message}" />
                         </Grid>
                     </StackPanel>
                 </HeaderedContentControl>
@@ -97,9 +97,8 @@
                         <Button Content="Do" Command="{Binding Do}" />
                         <TextBlock Text="Working..." Visibility="{Binding IsBusy, Converter={StaticResource IsVisibleConverter}}" />
 
-                        <TextBlock Text="{Binding FailedTargetFile}" />
-                        <TextBlock Text="{Binding LastError.Message}" />
-                        <TextBlock Text="{Binding LastError.StackTrace}" />
+                        <TextBlock Text="{Binding Result.Message}" />
+                        <TextBlock Text="{Binding Result.Exception}" Visibility="{Binding Result.Failed, Converter={StaticResource IsVisibleConverter}}" />
                     </StackPanel>
                 </HeaderedContentControl>
             </StackPanel>

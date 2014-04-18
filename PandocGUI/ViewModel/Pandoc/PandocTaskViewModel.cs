@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using PandocGUI.Model;
+using PandocGUI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,20 +23,12 @@ namespace PandocGUI.ViewModel.Pandoc
             set { Set(() => Model, ref _model, value); }
         }
 
-        private Exception _lastError;
+        private PandocTaskResult _result;
 
-        public Exception LastError
+        public PandocTaskResult Result
         {
-            get { return _lastError; }
-            set { Set(() => LastError, ref _lastError, value); }
-        }
-
-        private string _failedTargetFile;
-
-        public string FailedTargetFile
-        {
-            get { return _failedTargetFile; }
-            set { Set(() => FailedTargetFile, ref _failedTargetFile, value); }
+            get { return _result; }
+            set { Set(() => Result, ref _result, value); }
         }
 
         private bool _isBusy;
@@ -91,31 +84,7 @@ namespace PandocGUI.ViewModel.Pandoc
                     IsBusy = true;
                     Task.Factory.StartNew(() =>
                         {
-                            try
-                            {
-                                if (Model.TargetFiles.Count < 1) throw new InvalidOperationException("At least 1 target file needed for the task!");
-
-                                foreach (var targetFile in Model.TargetFiles)
-                                {
-                                    FailedTargetFile = Path.GetFileName(targetFile.Path);
-
-                                    var process = System.Diagnostics.Process.Start(this.GetLocator().Config.Model.PandocExePath, string.Format("{0} -f {1} -t {3} -s -o {2}"
-                                        , Model.SourceFile
-                                        , PandocFileExtension.Extensions[Path.GetExtension(Model.SourceFile)]
-                                        , targetFile.Path
-                                        , PandocFileExtension.Extensions[Path.GetExtension(targetFile.Path)]
-                                        ));
-
-                                    while (!process.HasExited) ;
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                Debugger.Break();
-                                LastError = e;
-                            }
-
-                            FailedTargetFile = null;
+                            Result = PandocRunner.Run(this.GetLocator().Config.Model.PandocExePath, Model);
                         }).ContinueWith(task =>
                             {
                                 IsBusy = false;

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using PandocGUI.Model;
+using PandocGUI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,9 +22,9 @@ namespace PandocGUI.ViewModel
             set { Set(() => Model, ref _model, value); }
         }
 
-        private string _detectedVersion;
+        private PandocTaskResult _detectedVersion;
 
-        public string DetectedVersion
+        public PandocTaskResult DetectedVersion
         {
             get { return _detectedVersion; }
             set { Set(() => DetectedVersion, ref _detectedVersion, value); }
@@ -62,23 +63,7 @@ namespace PandocGUI.ViewModel
                     IsBusy = true;
                     Task.Factory.StartNew(() =>
                         {
-                            try
-                            {
-                                var startInfo = new ProcessStartInfo(Model.PandocExePath, "--version");
-                                startInfo.UseShellExecute = false;
-                                startInfo.RedirectStandardOutput = true;
-
-                                var process = System.Diagnostics.Process.Start(startInfo);
-
-                                while (!process.HasExited) ;
-
-                                DetectedVersion = process.StandardOutput.ReadLine();
-                            }
-                            catch (Exception e)
-                            {
-                                Debugger.Break();
-                                this.GetLocator().Task.LastError = e;
-                            }
+                            DetectedVersion = PandocRunner.Version(this.GetLocator().Config.Model.PandocExePath);
                         }).ContinueWith(task =>
                             {
                                 IsBusy = false;
