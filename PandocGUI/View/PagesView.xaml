@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="PandocGUI.View.PagesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox SelectedItem="{Binding SelectedPage, Mode=TwoWay}"
+                 ItemsSource="{Binding Pages}"
+                 DisplayMemberPath="DisplayName" />
+        <!--<ListBox.Items>
+                <ListBoxItem Content="Config" x:Name="ConfigItem" />
+                <ListBoxItem Content="Load" x:Name="LoadItem" />
+                <ListBoxItem Content="Save" x:Name="SaveItem" />
+                <ListBoxItem Content="Tasks" x:Name="TasksItem" />
+                <ListBoxItem Content="Execute" x:Name="ExecuteItem" />
+            </ListBox.Items>-->
+        <!--</ListBox>-->
+
+        <ScrollViewer Grid.Column="1">
+            <ContentControl Content="{Binding ActualPage}"
+                            />
+        </ScrollViewer>
+    </Grid>
+</UserControl>

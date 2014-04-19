@@ -39,7 +39,7 @@ namespace PandocGUI.ViewModel
                         TaskRepository.Update(taskVM.Model);
                     else TaskRepository.Add(taskVM.Model);
 
-                    taskVM.Model = new PandocTask();
+                    Load.Execute(null);
                 });
 
             Load = new RelayCommand(() =>

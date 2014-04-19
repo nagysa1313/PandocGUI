@@ -75,6 +75,7 @@
     </ApplicationDefinition>
     <Compile Include="DAL\PandocTaskRepository.cs" />
     <Compile Include="Model\Config.cs" />
+    <Compile Include="Model\Page.cs" />
     <Compile Include="Model\PandocFileExtension.cs" />
     <Compile Include="Model\PandocTask.cs" />
     <Compile Include="Model\PandocTaskResult.cs" />
@@ -83,8 +84,25 @@
     <Compile Include="Utils\PandocRunner.cs" />
     <Compile Include="ViewModel\ConfigViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModel.cs" />
     <Compile Include="ViewModel\Pandoc\PandocTaskViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\ConfigurationView.xaml.cs">
+      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoadTasksView.xaml.cs">
+      <DependentUpon>LoadTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PagesView.xaml.cs">
+      <DependentUpon>PagesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SaveTasksView.xaml.cs">
+      <DependentUpon>SaveTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TaskView.xaml.cs">
+      <DependentUpon>TaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,6 +115,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoadTasksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PagesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SaveTasksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

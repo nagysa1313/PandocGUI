@@ -46,6 +46,7 @@ namespace PandocGUI.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ConfigViewModel>();
             SimpleIoc.Default.Register<PandocTaskViewModel>();
+            SimpleIoc.Default.Register<PagesViewModel>();
         }
 
         public MainViewModel Main
@@ -69,6 +70,14 @@ namespace PandocGUI.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ConfigViewModel>();
+            }
+        }
+
+        public PagesViewModel Pages
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PagesViewModel>();
             }
         }
         
