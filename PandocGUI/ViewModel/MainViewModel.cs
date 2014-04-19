@@ -21,32 +21,32 @@ namespace PandocGUI.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private static IRepository<PandocTask, int> TaskRepository = RepositoryFactory.GetInstance<PandocTask>();
+        //private static IRepository<PandocTask, int> TaskRepository = RepositoryFactory.GetInstance<PandocTask>();
 
-        public RelayCommand Save { get; private set; }
-        public RelayCommand Load { get; private set; }
+        //public RelayCommand Save { get; private set; }
+        //public RelayCommand Load { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            Save = new RelayCommand(() =>
-                {
-                    var taskVM = this.GetLocator().Task;
+            //Save = new RelayCommand(() =>
+            //    {
+            //        var taskVM = this.GetLocator().Task;
 
-                    if (TaskRepository.Exists(taskVM.Model.Key))
-                        TaskRepository.Update(taskVM.Model);
-                    else TaskRepository.Add(taskVM.Model);
+            //        if (TaskRepository.Exists(taskVM.Model.Key))
+            //            TaskRepository.Update(taskVM.Model);
+            //        else TaskRepository.Add(taskVM.Model);
 
-                    Load.Execute(null);
-                });
+            //        Load.Execute(null);
+            //    });
 
-            Load = new RelayCommand(() =>
-                {
-                    var taskVM = this.GetLocator().Task;
-                    taskVM.Model = TaskRepository.Any() ? TaskRepository.First() : taskVM.Model;
-                });
+            //Load = new RelayCommand(() =>
+            //    {
+            //        var taskVM = this.GetLocator().Task;
+            //        taskVM.Model = TaskRepository.Any() ? TaskRepository.First() : taskVM.Model;
+            //    });
         }
     }
 }

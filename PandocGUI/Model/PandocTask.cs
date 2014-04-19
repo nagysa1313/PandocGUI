@@ -3,6 +3,7 @@ using SharpRepository.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,8 +37,14 @@ namespace PandocGUI.Model
         public string SourceFile
         {
             get { return _sourceFile; }
-            set { Set(() => SourceFile, ref _sourceFile, value); }
+            set
+            {
+                Set(() => SourceFile, ref _sourceFile, value);
+                RaisePropertyChanged(() => SourceFileName);
+            }
         }
+
+        public string SourceFileName { get { return Path.GetFileNameWithoutExtension(SourceFile); } }
 
         private ObservableCollection<TargetFile> _targetFiles;
 

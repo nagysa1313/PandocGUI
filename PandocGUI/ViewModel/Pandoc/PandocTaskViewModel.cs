@@ -44,10 +44,10 @@ namespace PandocGUI.ViewModel.Pandoc
         }
 
         public RelayCommand AddTargetFile { get; private set; }
+        public RelayCommand BrowseForSourceFile { get; private set; }
         public RelayCommand<TargetFile> RemoveTargetFile { get; private set; }
-        public RelayCommand BrowseForSourceFile { get; set; }
-        public RelayCommand<TargetFile> BrowseForTargetFile { get; set; }
-        public GalaSoft.MvvmLight.Command.RelayCommand Do { get; set; }
+        public RelayCommand<TargetFile> BrowseForTargetFile { get; private set; }
+        public RelayCommand Do { get; private set; }
 
         public PandocTaskViewModel()
         {

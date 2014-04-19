@@ -51,9 +51,9 @@ namespace PandocGUI.ViewModel
         {
             Pages = new ObservableCollection<Page>();
             Pages.Add(new Page() { DisplayName = "Config", ViewType = typeof(ConfigurationView), ViewModelType = typeof(ConfigViewModel) });
-            Pages.Add(new Page() { DisplayName = "Task", ViewType = typeof(TaskView), ViewModelType = typeof(PandocTaskViewModel) });
-            Pages.Add(new Page() { DisplayName = "Save", ViewType = typeof(SaveTasksView), ViewModelType = typeof(MainViewModel) });
-            Pages.Add(new Page() { DisplayName = "Load", ViewType = typeof(LoadTasksView), ViewModelType = typeof(MainViewModel) });
+            Pages.Add(new Page() { DisplayName = "Tasks", ViewType = typeof(TaskListView), ViewModelType = typeof(TaskListViewModel) });
+            Pages.Add(new Page() { DisplayName = "Save", ViewType = typeof(SaveTasksView), ViewModelType = typeof(TaskListViewModel) });
+            Pages.Add(new Page() { DisplayName = "Load", ViewType = typeof(LoadTasksView), ViewModelType = typeof(TaskListViewModel) });
 
             SelectedPage = Pages.First();
         }

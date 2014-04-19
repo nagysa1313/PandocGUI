@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="PandocGUI.View.TaskListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:view="clr-namespace:PandocGUI.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+            
+        <StackPanel>
+            <ListBox ItemsSource="{Binding Tasks}"
+                     SelectedItem="{Binding SelectedTask, Mode=TwoWay}"
+                     DisplayMemberPath="SourceFileName">
+            </ListBox>
+            
+            <Button Content="Add" Command="{Binding Add}" />
+        </StackPanel>
+
+        <view:TaskView Grid.Column="1" DataContext="{Binding SelectedTaskViewModel}" />
+    </Grid>
+</UserControl>

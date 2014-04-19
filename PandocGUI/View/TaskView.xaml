@@ -2,10 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:PandocGUI.Utils.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <HeaderedContentControl Header="Task" DataContext="{Binding Task, Source={StaticResource Locator}}">
+    <HeaderedContentControl Header="Task" x:Name="TaskEditor">
         <HeaderedContentControl.Resources>
             <DataTemplate x:Key="TargetFileItemTemplate">
                 <Grid>
@@ -16,12 +18,14 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox Grid.Column="0" Text="{Binding Path, Mode=TwoWay}" />
-                    <Button Grid.Column="1" Content="Browse"
-                                        Command="{Binding Task.BrowseForTargetFile, Source={StaticResource Locator}}"
-                                        CommandParameter="{Binding}" />
-                    <Button Grid.Column="2" Content="Remove"
-                                        Command="{Binding Task.RemoveTargetFile, Source={StaticResource Locator}}"
-                                        CommandParameter="{Binding}" />
+                    <Button Grid.Column="1" Content="Browse">
+                        <i:Interaction.Behaviors>
+                            <behaviors:BrowseForBehavior Path="{Binding Path, Mode=TwoWay}" />
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <Button Grid.Column="2" Content="Remove" IsEnabled="False">
+                        
+                    </Button>
                 </Grid>
             </DataTemplate>
 
@@ -40,7 +44,11 @@
 
                 <TextBlock Text="Source file" />
                 <TextBox Grid.Column="1" Text="{Binding Model.SourceFile, Mode=TwoWay}" />
-                <Button Grid.Column="2" Content="Browse" Command="{Binding BrowseForSourceFile}" />
+                <Button Grid.Column="2" Content="Browse">
+                    <i:Interaction.Behaviors>
+                        <behaviors:BrowseForBehavior Path="{Binding Model.SourceFile, Mode=TwoWay}" UseOpenFileDialog="True" />
+                    </i:Interaction.Behaviors>
+                </Button>
             </Grid>
 
             <ItemsControl ItemsSource="{Binding Model.TargetFiles, Mode=TwoWay}"

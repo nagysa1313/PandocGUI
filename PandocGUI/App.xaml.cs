@@ -22,8 +22,6 @@ namespace PandocGUI
         void App_Startup(object sender, StartupEventArgs e)
         {
             if (!Directory.Exists("data")) Directory.CreateDirectory("data");
-
-            this.GetLocator().Main.Load.Execute(null);
         }
     }
 }
