@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
-    <Grid>
+
+    <Grid Background="{StaticResource LinearBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="4*" />
@@ -14,19 +14,13 @@
 
         <ListBox SelectedItem="{Binding SelectedPage, Mode=TwoWay}"
                  ItemsSource="{Binding Pages}"
-                 DisplayMemberPath="DisplayName" />
-        <!--<ListBox.Items>
-                <ListBoxItem Content="Config" x:Name="ConfigItem" />
-                <ListBoxItem Content="Load" x:Name="LoadItem" />
-                <ListBoxItem Content="Save" x:Name="SaveItem" />
-                <ListBoxItem Content="Tasks" x:Name="TasksItem" />
-                <ListBoxItem Content="Execute" x:Name="ExecuteItem" />
-            </ListBox.Items>-->
-        <!--</ListBox>-->
+                 DisplayMemberPath="DisplayName"
+                 ItemContainerStyle="{DynamicResource BaseItemContainerStyle}">
+        </ListBox>
 
-        <ScrollViewer Grid.Column="1">
-            <ContentControl Content="{Binding ActualPage}"
-                            />
+        <ScrollViewer Grid.Column="1"
+                      Background="White" Margin="8">
+            <ContentControl Content="{Binding ActualPage}" />
         </ScrollViewer>
     </Grid>
 </UserControl>

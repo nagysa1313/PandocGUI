@@ -8,9 +8,16 @@
              d1p1:Ignorable="d"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:PandocGUI.ViewModel" />
-        <view:ViewLocator x:Key="ViewLocator" xmlns:view="clr-namespace:PandocGUI.View" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/Colors.xaml" />
+                <ResourceDictionary Source="Style/Common.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <converters:IsVisibleConverter x:Key="IsVisibleConverter" />
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:PandocGUI.ViewModel" />
+            <view:ViewLocator x:Key="ViewLocator" xmlns:view="clr-namespace:PandocGUI.View" />
+
+            <converters:IsVisibleConverter x:Key="IsVisibleConverter" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="PrimaryForegroundColor">#12110F</Color>
+    <Color x:Key="SecondaryForegroundColor">#C9CBCA</Color>
+    <Color x:Key="MainBackgroundColor">#53B700</Color>
+    <Color x:Key="SecondBackgroundColor">#89D803</Color>
+
+    <SolidColorBrush x:Key="MainSolidBackground" Color="{StaticResource MainBackgroundColor}" />
+    <SolidColorBrush x:Key="SecondSolidBackground" Color="{StaticResource SecondBackgroundColor}" />
+    <SolidColorBrush x:Key="PrimaryForeground" Color="{StaticResource PrimaryForegroundColor}" />
+    <SolidColorBrush x:Key="SecondaryForeground" Color="{StaticResource SecondaryForegroundColor}" />
+
+    <LinearGradientBrush x:Key="LinearBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource MainBackgroundColor}" Offset="0" />
+        <GradientStop Color="{StaticResource SecondBackgroundColor}" Offset="1" />
+    </LinearGradientBrush>
+    
+</ResourceDictionary>
