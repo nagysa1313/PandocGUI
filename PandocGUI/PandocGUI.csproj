@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DAL\ConfigRepository.cs" />
     <Compile Include="DAL\PandocTaskRepository.cs" />
     <Compile Include="Model\Config.cs" />
     <Compile Include="Model\Page.cs" />

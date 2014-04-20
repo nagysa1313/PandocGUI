@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using PandocGUI.Model;
 using PandocGUI.Utils;
+using SharpRepository.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,6 +43,8 @@ namespace PandocGUI.ViewModel
             }
         }
 
+        public RelayCommand Save { get; private set; }
+        public RelayCommand Load { get; private set; }
         public RelayCommand BrowseForPandocExe { get; private set; }
         public RelayCommand DetectVersion { get; private set; }
 
@@ -69,7 +72,21 @@ namespace PandocGUI.ViewModel
                                 IsBusy = false;
                             });
                 }, () => !IsBusy);
+            Save = new RelayCommand(() =>
+                {
+                    var repo = RepositoryFactory.GetInstance<Config>();
+                    if (repo.Exists(Model.Key))
+                        repo.Update(Model);
+                    else repo.Add(Model);
+                });
+            Load = new RelayCommand(() =>
+                {
+                    var repo = RepositoryFactory.GetInstance<Config>();
+                    Model = repo.Any() ? repo.First() : Model;
+                });
 
+            this.PropertyChanged += (sender, e) => Save.Execute(null);
+            Load.Execute(null);
             DetectVersion.Execute(null);
         }
     }
