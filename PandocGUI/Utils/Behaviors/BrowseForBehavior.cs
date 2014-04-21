@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interactivity;
 
 namespace PandocGUI.Utils.Behaviors
@@ -32,6 +33,27 @@ namespace PandocGUI.Utils.Behaviors
             DependencyProperty.Register("UseOpenFileDialog", typeof(bool),
                 typeof(BrowseForBehavior), new PropertyMetadata(false));
 
+        #region AfterDialogCommand
+        public ICommand AfterDialogCommand
+        {
+            get { return (ICommand)GetValue(AfterDialogCommandProperty); }
+            set { SetValue(AfterDialogCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty AfterDialogCommandProperty =
+            DependencyProperty.Register("AfterDialogCommand", typeof(ICommand),
+                typeof(BrowseForBehavior), new PropertyMetadata(null));
+
+        public object AfterDialogCommandParameter
+        {
+            get { return (object)GetValue(AfterDialogCommandParameterProperty); }
+            set { SetValue(AfterDialogCommandParameterProperty, value); }
+        }
+
+        public static readonly DependencyProperty AfterDialogCommandParameterProperty =
+            DependencyProperty.Register("AfterDialogCommandParameter", typeof(object),
+                typeof(BrowseForBehavior), new PropertyMetadata(null)); 
+        #endregion
 
         protected override void OnAttached()
         {
@@ -57,6 +79,11 @@ namespace PandocGUI.Utils.Behaviors
                 {
                     Path = dialog.FileName;
                 }
+            }
+
+            if (AfterDialogCommand != null && AfterDialogCommand.CanExecute(AfterDialogCommandParameter))
+            {
+                AfterDialogCommand.Execute(AfterDialogCommandParameter);
             }
         }
 

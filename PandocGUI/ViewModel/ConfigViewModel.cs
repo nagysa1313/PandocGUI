@@ -45,22 +45,12 @@ namespace PandocGUI.ViewModel
 
         public RelayCommand Save { get; private set; }
         public RelayCommand Load { get; private set; }
-        public RelayCommand BrowseForPandocExe { get; private set; }
         public RelayCommand DetectVersion { get; private set; }
 
         public ConfigViewModel()
         {
             Model = new Config() { PandocExePath = "pandoc.exe" };
 
-            BrowseForPandocExe = new RelayCommand(() =>
-                {
-                    OpenFileDialog dialog = new OpenFileDialog();
-                    if (dialog.ShowDialog() ?? false)
-                    {
-                        Model.PandocExePath = dialog.FileName;
-                        DetectVersion.Execute(null);
-                    }
-                });
             DetectVersion = new RelayCommand(() =>
                 {
                     IsBusy = true;
