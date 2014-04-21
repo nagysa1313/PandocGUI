@@ -28,12 +28,17 @@ namespace PandocGUI.Utils
                     result.OutputFile = Path.GetFileName(targetFile.Path);
                     msgBuilder.Append(result.OutputFile);
 
-                    var process = System.Diagnostics.Process.Start(pandocExePath, string.Format("{0} -f {1} -t {3} -s -o {2}"
+                    var startInfo = new ProcessStartInfo(pandocExePath, string.Format("{0} -f {1} -t {3} -s -o {2}"
                         , task.SourceFile
                         , PandocFileExtension.Extensions[Path.GetExtension(task.SourceFile)]
                         , targetFile.Path
                         , PandocFileExtension.Extensions[Path.GetExtension(targetFile.Path)]
                         ));
+                    startInfo.UseShellExecute = false;
+                    startInfo.RedirectStandardOutput = true;
+                    startInfo.CreateNoWindow = true;
+
+                    var process = System.Diagnostics.Process.Start(startInfo);
 
                     while (!process.HasExited) ;
 
@@ -82,6 +87,7 @@ namespace PandocGUI.Utils
                 var startInfo = new ProcessStartInfo(pandocExePath, "--version");
                 startInfo.UseShellExecute = false;
                 startInfo.RedirectStandardOutput = true;
+                startInfo.CreateNoWindow = true;
 
                 var process = System.Diagnostics.Process.Start(startInfo);
 
