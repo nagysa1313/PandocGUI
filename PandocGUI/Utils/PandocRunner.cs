@@ -11,23 +11,25 @@ namespace PandocGUI.Utils
 {
     public class PandocRunner
     {
-        public static PandocTaskResult Run(string pandocExePath, PandocTask task)
+        public static IEnumerable<PandocTaskResult> Run(string pandocExePath, PandocTask task, Action<PandocTask, PandocTaskResult> callback = null)
         {
             if (pandocExePath == null) throw new ArgumentNullException("pandocExePath");
             if (task == null) throw new ArgumentNullException("task");
 
+            var results = new List<PandocTaskResult>();
             var result = new PandocTaskResult();
             var msgBuilder = new StringBuilder(task.SourceFile + "\n");
 
-            try
+            if (task.TargetFiles.Count < 1) throw new InvalidOperationException("At least 1 target file needed for the task!");
+
+            foreach (var targetFile in task.TargetFiles)
             {
-                if (task.TargetFiles.Count < 1) throw new InvalidOperationException("At least 1 target file needed for the task!");
+                var actResult = new PandocTaskResult() { OutputFile = targetFile.Path };
+                result.OutputFile = Path.GetFileName(targetFile.Path);
+                msgBuilder.Append(result.OutputFile);
 
-                foreach (var targetFile in task.TargetFiles)
+                try
                 {
-                    result.OutputFile = Path.GetFileName(targetFile.Path);
-                    msgBuilder.Append(result.OutputFile);
-
                     var startInfo = new ProcessStartInfo(pandocExePath, string.Format("{0} -f {1} -t {3} -s -o {2}"
                         , task.SourceFile
                         , PandocFileExtension.Extensions[Path.GetExtension(task.SourceFile)]
@@ -43,24 +45,32 @@ namespace PandocGUI.Utils
                     while (!process.HasExited) ;
 
                     msgBuilder.AppendLine(" successful.");
+                    actResult.Message = "Successful";
+                    actResult.Failed = false;
+                }
+                catch (Exception e)
+                {
+                    Debugger.Break();
+                    msgBuilder.AppendLine(" failed with: ");
+                    msgBuilder.AppendLine(e.Message);
+                    result.Exception = e;
+                    result.Failed = true;
+                    actResult.Message = "Failed with " + e.Message;
+                    actResult.Exception = e;
+                    actResult.Failed = true;
                 }
 
-                result.OutputFile = string.Empty;
-            }
-            catch (Exception e)
-            {
-                Debugger.Break();
-                msgBuilder.AppendLine(" failed with: ");
-                msgBuilder.AppendLine(e.Message);
-                result.Exception = e;
-                result.Failed = true;
+                results.Add(actResult);
+                if (callback != null) callback(task, actResult);
             }
 
             result.Message = msgBuilder.ToString();
-            return result;
+            callback(task, result);
+            results.Add(result);
+            return results;
         }
 
-        public static IEnumerable<PandocTaskResult> Run(string pandocExePath, IEnumerable<PandocTask> tasks)
+        public static IEnumerable<PandocTaskResult> Run(string pandocExePath, IEnumerable<PandocTask> tasks, Action<PandocTask, PandocTaskResult> callback = null)
         {
             if (pandocExePath == null) throw new ArgumentNullException("pandocExePath");
             if (tasks == null) throw new ArgumentNullException("tasks");
@@ -69,8 +79,8 @@ namespace PandocGUI.Utils
 
             foreach (var task in tasks)
             {
-                var result = Run(pandocExePath, task);
-                results.Add(result);
+                var result = Run(pandocExePath, task, callback);
+                results.AddRange(result);
             }
 
             return results.ToArray();

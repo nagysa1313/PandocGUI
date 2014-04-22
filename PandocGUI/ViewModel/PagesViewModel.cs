@@ -54,6 +54,7 @@ namespace PandocGUI.ViewModel
             Pages.Add(new Page() { DisplayName = "Tasks", ViewType = typeof(TaskListView), ViewModelType = typeof(TaskListViewModel) });
             Pages.Add(new Page() { DisplayName = "Save", ViewType = typeof(SaveTasksView), ViewModelType = typeof(TaskListViewModel) });
             Pages.Add(new Page() { DisplayName = "Load", ViewType = typeof(LoadTasksView), ViewModelType = typeof(TaskListViewModel) });
+            Pages.Add(new Page() { DisplayName = "Execution", ViewType = typeof(ExecutionView), ViewModelType = typeof(ExecutionViewModel) });
 
             SelectedPage = Pages.First();
         }

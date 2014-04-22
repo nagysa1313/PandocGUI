@@ -84,7 +84,7 @@ namespace PandocGUI.ViewModel.Pandoc
                     IsBusy = true;
                     Task.Factory.StartNew(() =>
                         {
-                            Result = PandocRunner.Run(this.GetLocator().Config.Model.PandocExePath, Model);
+                            Result = PandocRunner.Run(this.GetLocator().Config.Model.PandocExePath, Model).Last();
                         }).ContinueWith(task =>
                             {
                                 IsBusy = false;

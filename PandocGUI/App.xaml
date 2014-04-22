@@ -18,6 +18,7 @@
             <view:ViewLocator x:Key="ViewLocator" xmlns:view="clr-namespace:PandocGUI.View" />
 
             <converters:IsVisibleConverter x:Key="IsVisibleConverter" />
+            <converters:BoolNegateConverter x:Key="BoolNegateConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

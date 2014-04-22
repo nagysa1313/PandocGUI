@@ -18,6 +18,7 @@ namespace PandocGUI.View
             SimpleIoc.Default.Register<TaskListView>();
             SimpleIoc.Default.Register<LoadTasksView>();
             SimpleIoc.Default.Register<SaveTasksView>();
+            SimpleIoc.Default.Register<ExecutionView>();
         }
 
         public PagesView Pages
