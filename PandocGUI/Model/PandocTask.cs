@@ -54,9 +54,18 @@ namespace PandocGUI.Model
             set { Set(() => TargetFiles, ref _targetFiles, value); }
         }
 
+        private PandocTaskConfig _config;
+
+        public PandocTaskConfig Config
+        {
+            get { return _config; }
+            set { Set(() => Config, ref _config, value); }
+        }
+
         public PandocTask()
         {
             TargetFiles = new ObservableCollection<TargetFile>();
+            Config = new PandocTaskConfig();
         }
     }
 }

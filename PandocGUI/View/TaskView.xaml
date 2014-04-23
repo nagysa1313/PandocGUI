@@ -58,6 +58,8 @@
 
             <Button Content="Add target" Command="{Binding AddTargetFile}" />
 
+            <CheckBox Content="Parse Raw" IsChecked="{Binding Model.Config.ParseRaw, Mode=TwoWay}" />
+            
             <Button Content="Do" Command="{Binding Do}" />
             <TextBlock Text="Working..." Visibility="{Binding IsBusy, Converter={StaticResource IsVisibleConverter}}" />
 

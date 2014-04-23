@@ -11,6 +11,22 @@ namespace PandocGUI.Utils
 {
     public class PandocRunner
     {
+        public static string BuildArguments(string sourceFile, string targetFile, PandocTaskConfig config)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(string.Format("{0} -f {1} -t {3} -s -o {2}"
+                        , sourceFile
+                        , PandocFileExtension.Extensions[Path.GetExtension(sourceFile)]
+                        , targetFile
+                        , PandocFileExtension.Extensions[Path.GetExtension(targetFile)]
+                        ));
+
+            if (config.ParseRaw) sb.Append(" -R");
+
+            return sb.ToString();
+        }
+
         public static IEnumerable<PandocTaskResult> Run(string pandocExePath, PandocTask task, Action<PandocTask, PandocTaskResult> callback = null)
         {
             if (pandocExePath == null) throw new ArgumentNullException("pandocExePath");
@@ -30,12 +46,9 @@ namespace PandocGUI.Utils
 
                 try
                 {
-                    var startInfo = new ProcessStartInfo(pandocExePath, string.Format("{0} -f {1} -t {3} -s -o {2}"
-                        , task.SourceFile
-                        , PandocFileExtension.Extensions[Path.GetExtension(task.SourceFile)]
-                        , targetFile.Path
-                        , PandocFileExtension.Extensions[Path.GetExtension(targetFile.Path)]
-                        ));
+                    var args = BuildArguments(task.SourceFile, targetFile.Path, task.Config);
+
+                    var startInfo = new ProcessStartInfo(pandocExePath, args);
                     startInfo.UseShellExecute = false;
                     startInfo.RedirectStandardOutput = true;
                     startInfo.CreateNoWindow = true;
@@ -65,7 +78,7 @@ namespace PandocGUI.Utils
             }
 
             result.Message = msgBuilder.ToString();
-            callback(task, result);
+            if (callback != null) callback(task, result);
             results.Add(result);
             return results;
         }

@@ -79,6 +79,7 @@
     <Compile Include="Model\Page.cs" />
     <Compile Include="Model\PandocFileExtension.cs" />
     <Compile Include="Model\PandocTask.cs" />
+    <Compile Include="Model\PandocTaskConfig.cs" />
     <Compile Include="Model\PandocTaskResult.cs" />
     <Compile Include="Utils\AppExtentions.cs" />
     <Compile Include="Utils\Behaviors\BrowseForBehavior.cs" />
