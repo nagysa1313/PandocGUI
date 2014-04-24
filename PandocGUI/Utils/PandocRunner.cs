@@ -23,6 +23,9 @@ namespace PandocGUI.Utils
                         ));
 
             if (config.ParseRaw) sb.Append(" -R");
+            if (config.Normalize) sb.Append(" --normalize");
+            if (config.PreserveTabs) sb.Append(" -p");
+            if (config.TabStop != 4) sb.Append(" --tab-stop=" + config.TabStop);
 
             return sb.ToString();
         }

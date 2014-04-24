@@ -1,16 +1,36 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <GridLength x:Key="DefaultSeparatorColumnWidth">15</GridLength>
+    <sys:Double x:Key="DefaultMarginValue">8</sys:Double>
+    <sys:Double x:Key="HalfMarginValue">4</sys:Double>
+    <Thickness x:Key="DefaultMargin"
+               Left="{StaticResource DefaultMarginValue}"
+               Top="{StaticResource DefaultMarginValue}"
+               Right="{StaticResource DefaultMarginValue}"
+               Bottom="{StaticResource DefaultMarginValue}" />
+    <Thickness x:Key="HalfMargin"
+               Left="{StaticResource HalfMarginValue}"
+               Top="{StaticResource HalfMarginValue}"
+               Right="{StaticResource HalfMarginValue}"
+               Bottom="{StaticResource HalfMarginValue}" />
+    <sys:Double x:Key="DefaultPaddingValue">4</sys:Double>
+    <Thickness x:Key="DefaultPadding"
+               Left="{StaticResource DefaultPaddingValue}"
+               Top="{StaticResource DefaultPaddingValue}"
+               Right="{StaticResource DefaultPaddingValue}"
+               Bottom="{StaticResource DefaultPaddingValue}" />
+    
     <Style x:Key="BaseButtonStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{StaticResource SecondaryForeground}" />
         <Setter Property="Background" Value="{StaticResource LinearBackground}" />
-        <Setter Property="Padding" Value="4" />
-        <Setter Property="Margin" Value="8" />
+        <Setter Property="Padding" Value="{StaticResource DefaultPadding}" />
+        <Setter Property="Margin" Value="{StaticResource DefaultMargin}" />
     </Style>
 
     <Style x:Key="BaseTextBoxStyle" TargetType="TextBox">
@@ -23,12 +43,17 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="Margin" Value="4" />
+        <Setter Property="Margin" Value="{StaticResource HalfMargin}" />
+    </Style>
+    
+    <Style x:Key="BaseCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
     
     <DataTemplate x:Key="BaseHeaderDataTemplate">
         <Border Background="{StaticResource LinearBackground}">
-            <TextBlock Text="{Binding}" Margin="4" />
+            <TextBlock Text="{Binding}" Margin="{StaticResource HalfMargin}" />
         </Border>
     </DataTemplate>
     
@@ -36,9 +61,10 @@
         <Setter Property="HeaderTemplate" Value="{StaticResource BaseHeaderDataTemplate}" />
     </Style>
 
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}" />
     <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" />
     <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}" />
-    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}" />
     <Style TargetType="HeaderedContentControl" BasedOn="{StaticResource BaseHeaderedContentControlStyle}" />
     
     <Style x:Key="BaseItemContainerStyle" TargetType="ListBoxItem">

@@ -58,8 +58,52 @@
 
             <Button Content="Add target" Command="{Binding AddTargetFile}" />
 
-            <CheckBox Content="Parse Raw" IsChecked="{Binding Model.Config.ParseRaw, Mode=TwoWay}" />
-            
+            <WrapPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="150" />
+                        <ColumnDefinition Width="{StaticResource DefaultSeparatorColumnWidth}" />
+                        <ColumnDefinition Width="*" MinWidth="50" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Parse Raw" />
+                    <CheckBox Grid.Column="2" IsChecked="{Binding Model.Config.ParseRaw, Mode=TwoWay}" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="150" />
+                        <ColumnDefinition Width="{StaticResource DefaultSeparatorColumnWidth}" />
+                        <ColumnDefinition Width="*" MinWidth="50" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Normalize" />
+                    <CheckBox Grid.Column="2" IsChecked="{Binding Model.Config.Normalize, Mode=TwoWay}" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="150" />
+                        <ColumnDefinition Width="{StaticResource DefaultSeparatorColumnWidth}" />
+                        <ColumnDefinition Width="*" MinWidth="50" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Preserve tabs" />
+                    <CheckBox Grid.Column="2" IsChecked="{Binding Model.Config.PreserveTabs, Mode=TwoWay}" />
+                </Grid>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="150" />
+                        <ColumnDefinition Width="{StaticResource DefaultSeparatorColumnWidth}" />
+                        <ColumnDefinition Width="*" MinWidth="50" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="Tab stop" />
+                    <TextBox Grid.Column="2" Text="{Binding Model.Config.TabStop, Mode=TwoWay}" />
+                </Grid>
+            </WrapPanel>
+
             <Button Content="Do" Command="{Binding Do}" />
             <TextBlock Text="Working..." Visibility="{Binding IsBusy, Converter={StaticResource IsVisibleConverter}}" />
 
