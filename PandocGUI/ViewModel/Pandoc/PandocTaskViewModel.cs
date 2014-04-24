@@ -44,9 +44,7 @@ namespace PandocGUI.ViewModel.Pandoc
         }
 
         public RelayCommand AddTargetFile { get; private set; }
-        public RelayCommand BrowseForSourceFile { get; private set; }
         public RelayCommand<TargetFile> RemoveTargetFile { get; private set; }
-        public RelayCommand<TargetFile> BrowseForTargetFile { get; private set; }
         public RelayCommand Do { get; private set; }
 
         public PandocTaskViewModel()
@@ -61,23 +59,7 @@ namespace PandocGUI.ViewModel.Pandoc
             RemoveTargetFile = new RelayCommand<TargetFile>(file =>
                 {
                     Model.TargetFiles.Remove(file);
-                });
-            BrowseForSourceFile = new RelayCommand(() =>
-                {
-                    OpenFileDialog dialog = new OpenFileDialog();
-                    if (dialog.ShowDialog() ?? false)
-                    {
-                        Model.SourceFile = dialog.FileName;
-                    }
-                });
-            BrowseForTargetFile = new RelayCommand<TargetFile>((file) =>
-                {
-                    SaveFileDialog dialog = new SaveFileDialog();
-                    if (dialog.ShowDialog() ?? false)
-                    {
-                        file.Path = dialog.FileName;
-                    }
-                });
+                }, file => file != null);
 
             Do = new RelayCommand(() =>
                 {

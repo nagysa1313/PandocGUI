@@ -28,6 +28,7 @@ namespace PandocGUI.ViewModel
                 Set(() => SelectedPage, ref _selectedPage, value);
                 ActualPage = ServiceLocator.Current.GetInstance(SelectedPage.ViewType) as UserControl;
                 ActualPage.DataContext = ServiceLocator.Current.GetInstance(SelectedPage.ViewModelType);
+                ActualPage.Tag = ActualPage.DataContext;
             }
         }
 

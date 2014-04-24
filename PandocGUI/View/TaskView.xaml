@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:PandocGUI.Utils.Behaviors"
+             xmlns:utils="clr-namespace:PandocGUI.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <HeaderedContentControl Header="Task" x:Name="TaskEditor">
+    <HeaderedContentControl Header="Task" x:Name="TaskEditor">        
         <HeaderedContentControl.Resources>
             <DataTemplate x:Key="TargetFileItemTemplate">
                 <Grid>
@@ -23,7 +24,9 @@
                             <behaviors:BrowseForBehavior Path="{Binding Path, Mode=TwoWay}" />
                         </i:Interaction.Behaviors>
                     </Button>
-                    <Button Grid.Column="2" Content="Remove" IsEnabled="False">
+                    <Button Grid.Column="2" Content="Remove" IsEnabled="False"
+                            Command="{Binding DataContext.RemoveTargetFile, Source={StaticResource spy}}"
+                            CommandParameter="{Binding}">
                         
                     </Button>
                 </Grid>
@@ -52,9 +55,34 @@
             </Grid>
 
             <ItemsControl ItemsSource="{Binding Model.TargetFiles, Mode=TwoWay}"
-                                      ItemTemplate="{StaticResource TargetFileItemTemplate}"
-                                      ItemsPanel="{StaticResource TargetFilesPanelTemplate}"
-                                      Margin="4"/>
+                          ItemsPanel="{StaticResource TargetFilesPanelTemplate}"
+                          Margin="4">
+                <ItemsControl.Resources>
+                    <utils:DataContextSpy x:Key="spy" />
+                </ItemsControl.Resources>
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Grid.Column="0" Text="{Binding Path, Mode=TwoWay}" />
+                            <Button Grid.Column="1" Content="Browse">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:BrowseForBehavior Path="{Binding Path, Mode=TwoWay}" />
+                                </i:Interaction.Behaviors>
+                            </Button>
+                            <Button Grid.Column="2" Content="Remove"
+                                    Command="{Binding DataContext.RemoveTargetFile, Source={StaticResource spy}}"
+                                    CommandParameter="{Binding}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <Button Content="Add target" Command="{Binding AddTargetFile}" />
 

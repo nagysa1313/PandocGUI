@@ -27,7 +27,13 @@
                Bottom="{StaticResource DefaultPaddingValue}" />
     
     <Style x:Key="BaseButtonStyle" TargetType="Button">
-        <Setter Property="Foreground" Value="{StaticResource SecondaryForeground}" />
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{TemplateBinding Content}" Foreground="{StaticResource SecondaryForeground}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Background" Value="{StaticResource LinearBackground}" />
         <Setter Property="Padding" Value="{StaticResource DefaultPadding}" />
         <Setter Property="Margin" Value="{StaticResource DefaultMargin}" />
